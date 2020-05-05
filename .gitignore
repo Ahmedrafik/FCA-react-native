@@ -103,3 +103,6 @@ RNTester/Pods/*
 # Visual studio
 .vscode
 .vs
+
+#react Native
+.expo

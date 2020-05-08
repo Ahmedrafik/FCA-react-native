@@ -11,12 +11,10 @@ class Login extends Component{
   constructor(props) {
     super(props)
     this.state = {
-      showPass: false
+      showPass: false,
+      login: "",
+      pass: "",
     }
-  }
-
-  showPassUpdate= () => {
-      this.setState({showPass: !this.state.showPass})
   }
 
   render() {
@@ -34,6 +32,7 @@ class Login extends Component{
                 placeholder={'E-mail / Login'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
+                onChangeText={ (text)=> this.setState({login: text}) }
             />
           </View>
           <View style={styles.inputContainer}>
@@ -43,10 +42,11 @@ class Login extends Component{
                 placeholder={'Mot de passe'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
+                onChangeText={ (text)=> this.setState({pass: text}) }
                 secureTextEntry={!this.state.showPass}
             />
             <TouchableOpacity style={styles.btnEye}
-                              onPress={this.showPassUpdate.bind(this)}>
+                              onPress={ ()=> this.setState({showPass: !this.state.showPass})}>
               <Icon name={this.state.showPass ? 'ios-eye-off' : 'ios-eye'} size={26} color={'rgba(255, 255, 255, 0.7)'}/>
             </TouchableOpacity>
           </View>

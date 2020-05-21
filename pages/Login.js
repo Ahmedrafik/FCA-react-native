@@ -11,12 +11,18 @@ const {width: WIDTH } = Dimensions.get('window')
 class Login extends Component{
   constructor(props) {
     super(props)
+    this.login = ""
+    this.pass =  ""
     this.state = {
-      showPass: false,
-      login: "",
-      pass: "",
+      showPass: false
     }
   }
+
+  log(){
+    console.log("login = " + this.login)
+    console.log("password = " + this.pass)
+  }
+
 
   render() {
 
@@ -30,7 +36,7 @@ class Login extends Component{
                 placeholder={'E-mail / Login'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
-                onChangeText={ (text)=> this.setState({login: text}) }
+                onChangeText={ (text)=> this.login=text }
             />
           </View>
           <View style={styles.inputContainer}>
@@ -40,7 +46,7 @@ class Login extends Component{
                 placeholder={'Mot de passe'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
-                onChangeText={ (text)=> this.setState({pass: text}) }
+                onChangeText={ (text)=> this.pass=text }
                 secureTextEntry={!this.state.showPass}
             />
             <TouchableOpacity style={styles.btnEye}
@@ -49,7 +55,7 @@ class Login extends Component{
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={() => this.log()}>
             <Text style={styles.text}>Connexion</Text>
           </TouchableOpacity>
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../assets/images/background.png'
-import logo from '../assets/images/logo.png'
+import Logo from "../components/Logo";
 
 const {width: WIDTH } = Dimensions.get('window')
 
@@ -21,10 +21,7 @@ class Register extends Component{
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-          <View style={styles.logoContainer}>
-            <Image source={logo} style={styles.logo}/>
-            <Text style={styles.logoText}>Fuzy Club Apero</Text>
-          </View>
+          <Logo/>
           <View style={styles.inputContainer}>
             <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
             <TextInput

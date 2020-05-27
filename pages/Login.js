@@ -5,8 +5,11 @@ import Icon from "react-native-vector-icons/Ionicons";
 import bgImage from '../assets/images/background.png'
 
 import Logo from '../components/Logo'
+import {getUserByLogin} from '../api/FCArsapi'
+import Constants from '../components/Constants'
 
 const {width: WIDTH } = Dimensions.get('window')
+
 
 class Login extends Component{
   constructor(props) {
@@ -14,13 +17,24 @@ class Login extends Component{
     this.login = ""
     this.pass =  ""
     this.state = {
-      showPass: false
+      showPass: false,
+      error: ""
     }
   }
 
-  log(){
-    console.log("login = " + this.login)
-    console.log("password = " + this.pass)
+  checkLogin(){
+   getUserByLogin(this.login, this.pass)
+       .then((response) =>{
+         if(response.status === Constants.HTTPStatus.NOTFOUND){
+           this.setState({error: 'Le login/pass entré ne correspondent à aucun utilisateur validé.'})
+           console.log('404 : ' + JSON.stringify(response))
+         }else{
+           this.setState({error: ''})
+           navigation
+           console.log('200 : ' + JSON.stringify(response))
+         }
+       })
+       .catch((error) => console.log("verifyAccess error : " + error));
   }
 
 
@@ -55,9 +69,11 @@ class Login extends Component{
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.btnLogin} onPress={() => this.log()}>
+          <TouchableOpacity style={styles.btnLogin} onPress={() => this.checkLogin()}>
             <Text style={styles.text}>Connexion</Text>
           </TouchableOpacity>
+
+          <Text style={styles.errorText}>{this.state.error}</Text>
 
         </ImageBackground>
     );
@@ -121,6 +137,11 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 16,
     textAlign: 'center'
+  },
+  errorText:{
+    textAlign: 'center',
+    color: 'red'
+
   }
 
 });

@@ -8,6 +8,7 @@ import Logo from '../components/Logo'
 import {getUserByLogin} from '../api/FCArsapi'
 import Constants from '../components/Constants'
 
+
 const {width: WIDTH } = Dimensions.get('window')
 
 
@@ -30,8 +31,8 @@ class Login extends Component{
            console.log('404 : ' + JSON.stringify(response))
          }else{
            this.setState({error: ''})
-           navigation
-           console.log('200 : ' + JSON.stringify(response))
+           this.props.navigation.navigate('Home')
+           console.log('200 : ' + JSON.stringify(response.body))
          }
        })
        .catch((error) => console.log("verifyAccess error : " + error));

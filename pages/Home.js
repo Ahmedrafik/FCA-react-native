@@ -5,11 +5,15 @@ import bgImage from '../assets/images/background.png'
 
 
 class Home extends Component{
+  constructor(props) {
+    super(props)
+  }
+
   render() {
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-          <Text style={styles.text}>Welcome to the Home page</Text>
+          <Text style={styles.text}>Welcome to the Home page {this.props.route.params.firstname}</Text>
         </ImageBackground>
     );
   }

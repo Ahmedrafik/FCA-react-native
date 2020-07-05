@@ -25,17 +25,20 @@ class Login extends Component{
 
   checkLogin(){
    getUserByLogin(this.login, this.pass)
-       .then((response) =>{
-         if(response.status === Constants.HTTPStatus.NOTFOUND){
+       .then((response) => response.json())
+       .then((responseJson) => {
+         if(responseJson.status === Constants.HTTPStatus.NOTFOUND){
            this.setState({error: 'Le login/pass entré ne correspondent à aucun utilisateur validé.'})
-           console.log('404 : ' + JSON.stringify(response))
+           console.log('404 : ' + JSON.stringify(responseJson))
          }else{
            this.setState({error: ''})
-           this.props.navigation.navigate('Home')
-           console.log('200 : ' + JSON.stringify(response.body))
+           this.props.navigation.navigate('Home', responseJson)
+           console.log('200 : ' + JSON.stringify(responseJson))
          }
        })
-       .catch((error) => console.log("verifyAccess error : " + error));
+       .catch((error) => {
+           console.log("verifyAccess error : " + error)
+       });
   }
 
 

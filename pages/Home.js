@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {ImageBackground, StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
-import bgImage from '../assets/images/background.png'
-
+import logo from '../assets/images/logo.png'
 
 class Home extends Component{
   constructor(props) {
@@ -12,25 +11,59 @@ class Home extends Component{
   render() {
 
     return (
-        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-          <Text style={styles.text}>Welcome to the Home page {this.props.route.params.firstname}</Text>
-        </ImageBackground>
+        <View style={styles.container}>
+          <View style={styles.headerContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Bonjour Captain</Text>
+            </View>
+            <View style={styles.logoContainer}>
+              <Image source={logo} style={styles.logo}/>
+            </View>
+          </View>
+          <View style={styles.slideshowContainer}>
+
+          </View>
+          <View style={styles.helpContainer}/>
+        </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  backgroundContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+  container: {
+    flex: 1
   },
-  text: {
-    color : 'white',
+  headerContainer: {
+    flex: 1,
+    paddingTop: 25,
+    flexDirection: 'row',
+    backgroundColor: 'white'
+  },
+  slideshowContainer: {
+    flex: 5,
+    backgroundColor: 'green'
+  },
+  helpContainer: {
+    flex: 3,
+    backgroundColor: 'blue'
+  },
+  titleContainer:{
+    flex: 3,
+    alignItems: 'flex-start',
+    justifyContent:'center'
+  },
+  title:{
     fontSize: 20,
-    fontWeight : '500',
-    marginTop : 10,
-    opacity : 0.5
+    fontWeight: 'bold'
+  },
+  logoContainer:{
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent:'center'
+  },
+  logo:{
+    width: 40,
+    height: 40
   }
 });
 

@@ -26,7 +26,7 @@ class Home extends Component{
           image: bfm,
         },
         {
-          title:"Bouteilles",
+          title:"Bottles",
           image: bottles,
         },
         {

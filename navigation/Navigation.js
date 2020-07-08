@@ -15,6 +15,12 @@ export default function Navigation() {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Organigramme" component={Organigramme} />
+                <Stack.Screen name="Bfm" component={Bfm} />
+                <Stack.Screen name="Bottles" component={Bottles} />
+                <Stack.Screen name="Promenade" component={Promenade} />
+                <Stack.Screen name="PlusUn" component={PlusUn} />
+
             </Stack.Navigator>
         </NavigationContainer>
     );

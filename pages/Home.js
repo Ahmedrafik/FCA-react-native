@@ -59,7 +59,7 @@ class Home extends Component{
 
   goOnPage(titlePage) {
     console.log("Go on page " + titlePage)
-    // this.props.navigation.navigate(titlePage)
+    this.props.navigation.navigate(titlePage)
   }
 
   render() {

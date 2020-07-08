@@ -5,6 +5,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
+import Organigramme from "../pages/Organigramme";
+import Bfm from "../pages/Bfm";
+import Bottles from "../pages/Bottles";
+import Promenade from "../pages/Promenade";
+import PlusUn from "../pages/PlusUn";
 
 const Stack = createStackNavigator();
 

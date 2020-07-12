@@ -19,7 +19,7 @@ class Logo extends Component{
 const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 50
+    justifyContent: 'center',
   },
   logo: {
     width:120,

@@ -79,6 +79,10 @@ class Login extends Component{
 
           <Text style={styles.errorText}>{this.state.error}</Text>
 
+          <Text style={styles.registerText} onPress={() => this.props.navigation.push('RegisterHome')}>
+            Toujours pas inscrit au FCA, fait ta demande ici
+          </Text>
+
         </ImageBackground>
     );
   }
@@ -145,7 +149,13 @@ const styles = StyleSheet.create({
   errorText:{
     textAlign: 'center',
     color: 'red'
-
+  },
+  registerText: {
+    color : 'white',
+    fontSize: 16,
+    fontWeight : '500',
+    marginTop : 10,
+    opacity : 0.5
   }
 
 });

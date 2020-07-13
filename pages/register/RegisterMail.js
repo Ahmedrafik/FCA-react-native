@@ -32,7 +32,7 @@ export default class RegisterMail extends Component{
             <Text style={styles.text1}>Entrer votre e-mail</Text>
 
             <View style={styles.inputContainer}>
-              <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
+              <Icon name={'ios-at'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
               <TextInput
                   style={styles.input}
                   placeholder={'E-mail'}

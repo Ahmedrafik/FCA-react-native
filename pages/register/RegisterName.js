@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
+
 
 const {width: WIDTH } = Dimensions.get('window')
 
@@ -33,46 +43,54 @@ export default class RegisterName extends Component{
   render() {
 
     return (
-        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-          <View style={styles.registerLogo}>
-            <Logo/>
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text1}>Comment vous appellez vous ?</Text>
-            <View style={styles.inputContainer}>
-              <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
-              <TextInput
-                  style={styles.input}
-                  placeholder={'Nom'}
-                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                  underlineColorAndroid={'transparent'}
-                  onChangeText={ (text)=> this.setLastName(text) }
-              />
+          <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+            <StatusBar hidden={true}/>
+            <View style={styles.registerLogo}>
+              <Logo/>
             </View>
-            <View style={styles.inputContainer}>
-              <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
-              <TextInput
-                  style={styles.input}
-                  placeholder={'Prénom'}
-                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                  underlineColorAndroid={'transparent'}
-                  onChangeText={ (text)=> this.setFirstName(text) }
-              />
+            <View style={styles.textContainer}>
+              <Text style={styles.text1}>Comment vous appelez vous ?</Text>
+              <View style={styles.inputContainer}>
+                <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
+                <TextInput
+                    style={styles.input}
+                    placeholder={'Nom'}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                    returnKeyType={'next'}
+                    onSubmitEditing={() => this.firstNameInput.focus()}
+                    onChangeText={ (text)=> this.setLastName(text) }
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
+                <TextInput
+                    style={styles.input}
+                    placeholder={'Prénom'}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                    underlineColorAndroid={'transparent'}
+                    returnKeyType={'go'}
+                    ref={(input) => this.firstNameInput = input}
+                    onChangeText={ (text)=> this.setFirstName(text) }
+                />
+              </View>
             </View>
-          </View>
 
-          <View style={styles.footerContainer}>
-            <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('RegisterMail', {userFca : this.userFca})}>
-              <Text style={styles.text}>Suivant</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.footerContainer}>
+              <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('RegisterMail', {userFca : this.userFca})}>
+                <Text style={styles.text}>Suivant</Text>
+              </TouchableOpacity>
+            </View>
 
-        </ImageBackground>
+          </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1
+  },
   backgroundContainer: {
     flex: 1,
     alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
@@ -20,6 +20,7 @@ export default class RegisterValidation extends Component{
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+          <StatusBar hidden={true}/>
           <View style={styles.registerLogo}>
             <Logo/>
           </View>

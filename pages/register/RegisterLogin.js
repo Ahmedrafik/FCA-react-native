@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../../assets/images/background.png'
@@ -22,6 +31,7 @@ export default class RegisterLogin extends Component{
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+          <StatusBar hidden={true}/>
           <View style={styles.registerLogo}>
             <Logo/>
           </View>

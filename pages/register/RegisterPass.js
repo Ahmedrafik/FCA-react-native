@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
-import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
 import {saveUser} from "../../api/FCArsapi";
+
 
 const {width: WIDTH } = Dimensions.get('window')
 
@@ -19,7 +29,10 @@ export default class RegisterPass extends Component{
   }
 
   setPass(pass) {
-    this.userFca.pass = pass
+    let encryptPass = CryptoJS.AES.encrypt(pass, 'secret key 123');
+    console.log("encrypted text", encryptPass.toString());
+
+    this.userFca.pass = encryptPass
     console.log(this.userFca)
   }
 
@@ -46,6 +59,7 @@ export default class RegisterPass extends Component{
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+          <StatusBar hidden={true}/>
           <View style={styles.registerLogo}>
             <Logo/>
           </View>
@@ -58,6 +72,8 @@ export default class RegisterPass extends Component{
                   placeholder={'Mot de passe'}
                   placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                   underlineColorAndroid={'transparent'}
+                  returnKeyType={'next'}
+                  onSubmitEditing={() => this.confirmPassInput.focus()}
                   onChangeText={ (text)=> this.setPass(text) }
                   secureTextEntry={!this.state.showPass}
               />
@@ -74,6 +90,8 @@ export default class RegisterPass extends Component{
                   placeholder={'Confirmation du mot de passe'}
                   placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                   underlineColorAndroid={'transparent'}
+                  returnKeyType={'go'}
+                  ref={(input) => this.confirmPassInput = input}
                   onChangeText={ (text)=> this.setConfirmPass(text) }
                   secureTextEntry={!this.state.showPass}
               />

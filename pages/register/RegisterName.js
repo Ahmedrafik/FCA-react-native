@@ -14,12 +14,17 @@ import Icon from "react-native-vector-icons/Ionicons";
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
 
+import {required} from "../../components/Validation"
 
 const {width: WIDTH } = Dimensions.get('window')
 
 export default class RegisterName extends Component{
   constructor(props) {
     super(props)
+    this.state = {
+      errorName: "",
+      errorFirstName: ""
+    }
     this.userFca = {
       lastname: "",
       firstname: "",
@@ -28,6 +33,29 @@ export default class RegisterName extends Component{
       pass: "",
       confirmPass: ""
     }
+  }
+
+  validPage(){
+    this.validLastName()
+    this.validFirstName()
+    this.state.errorName === "" && this.state.errorFirstName === ""
+      ? this.props.navigation.navigate('RegisterMail', {userFca : this.userFca})
+      : null
+  }
+
+  validLastName(){
+    if(required(this.userFca.lastname)) {
+      this.setState({errorName: ""})
+      this.firstNameInput.focus()
+    } else {
+      this.setState({errorName: "Veuillez entrer votre nom."})
+    }
+  }
+
+  validFirstName(){
+    required(this.userFca.firstname)
+        ? this.setState({errorFirstName: ""})
+        : this.setState({errorFirstName: "Veuillez entrer votre prénom."})
   }
 
   setLastName(lastName) {
@@ -58,10 +86,11 @@ export default class RegisterName extends Component{
                     placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     underlineColorAndroid={'transparent'}
                     returnKeyType={'next'}
-                    onSubmitEditing={() => this.firstNameInput.focus()}
+                    onSubmitEditing={() => this.validLastName()}
                     onChangeText={ (text)=> this.setLastName(text) }
                 />
               </View>
+              <Text style={styles.errorText}>{this.state.errorName}</Text>
               <View style={styles.inputContainer}>
                 <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
                 <TextInput
@@ -71,13 +100,16 @@ export default class RegisterName extends Component{
                     underlineColorAndroid={'transparent'}
                     returnKeyType={'go'}
                     ref={(input) => this.firstNameInput = input}
+                    onSubmitEditing={() => this.validFirstName()}
                     onChangeText={ (text)=> this.setFirstName(text) }
                 />
               </View>
+              <Text style={styles.errorText}>{this.state.errorFirstName}</Text>
+
             </View>
 
             <View style={styles.footerContainer}>
-              <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('RegisterMail', {userFca : this.userFca})}>
+              <TouchableOpacity style={styles.btnLogin} onPress={() => this.validPage()}>
                 <Text style={styles.text}>Suivant</Text>
               </TouchableOpacity>
             </View>
@@ -146,6 +178,9 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 16,
     textAlign: 'center'
+  },
+  errorText:{
+    textAlign: 'center',
+    color: 'red'
   }
-
 });

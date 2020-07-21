@@ -14,13 +14,32 @@ import Icon from "react-native-vector-icons/Ionicons";
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
 
+import {required} from "../../components/Validation"
+
 const {width: WIDTH } = Dimensions.get('window')
 
 export default class RegisterLogin extends Component{
   constructor(props) {
     super(props)
+    this.state = {
+      error: ''
+    }
     this.userFca = this.props.route.params.userFca
   }
+
+  validPage(){
+    this.validLogin()
+    this.state.error === ""
+        ? this.props.navigation.navigate('RegisterPass', {userFca : this.userFca})
+        : null
+  }
+
+  validLogin(){
+    required(this.userFca.login)
+        ? this.setState({error: ""})
+        : this.setState({error: "Veuillez entrer nom d'utilisateur."})
+  }
+
 
   setLogin(login) {
     this.userFca.login = login
@@ -44,13 +63,15 @@ export default class RegisterLogin extends Component{
                   placeholder={'Login'}
                   placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                   underlineColorAndroid={'transparent'}
+                  onSubmitEditing={() => this.validLogin()}
                   onChangeText={ (text)=> this.setLogin(text) }
               />
             </View>
+            <Text style={styles.errorText}>{this.state.error}</Text>
           </View>
 
           <View style={styles.footerContainer}>
-            <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('RegisterPass', {userFca : this.userFca})}>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => this.validPage()}>
               <Text style={styles.text}>Suivant</Text>
             </TouchableOpacity>
           </View>
@@ -116,6 +137,10 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 16,
     textAlign: 'center'
+  },
+  errorText:{
+    textAlign: 'center',
+    color: 'red'
   }
 
 });

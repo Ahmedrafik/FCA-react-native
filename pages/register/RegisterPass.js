@@ -16,6 +16,7 @@ import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
 import {saveUser} from "../../api/FCArsapi";
 import Constants from "../../components/Constants"
+import {required} from "../../components/Validation";
 
 
 const {width: WIDTH } = Dimensions.get('window')
@@ -31,6 +32,32 @@ export default class RegisterPass extends Component{
     this.userFca = this.props.route.params.userFca
   }
 
+  validPage(){
+    this.validPass()
+    this.validConfirmPass()
+    this.state.error === ""
+        ? this.validUser(this.userFca)
+        : null
+  }
+
+  validPass(){
+    if(required(this.userFca.pass)) {
+      this.setState({error: ""})
+      this.confirmPassInput.focus()
+    } else {
+      this.setState({error: "Veuillez entrer un mot de passe."})
+    }
+  }
+
+  validConfirmPass(){
+    if(required(this.userFca.confirmPass)
+        && CryptoJS.AES.decrypt(this.userFca.pass, Constants.EncryptKey).toString() === CryptoJS.AES.decrypt(this.userFca.confirmPass, Constants.EncryptKey).toString()) {
+      this.setState({error: ""})
+    } else {
+      this.setState({error: "Veuillez entrer des mots de passe identique."})
+    }
+  }
+
   setPass(pass) {
     this.userFca.pass = CryptoJS.AES.encrypt(pass, Constants.EncryptKey).toString()
     console.log(this.userFca)
@@ -39,13 +66,6 @@ export default class RegisterPass extends Component{
   setConfirmPass(confirmPass) {
     this.userFca.confirmPass = CryptoJS.AES.encrypt(confirmPass, Constants.EncryptKey).toString()
     console.log(this.userFca)
-
-    if(CryptoJS.AES.decrypt(this.userFca.pass, Constants.EncryptKey).toString() !== CryptoJS.AES.decrypt(this.userFca.confirmPass, Constants.EncryptKey).toString()){
-      this.setState({error:"Les mots de passe ne sont pas identique."})
-    }
-    else {
-      this.setState({error:""})
-    }
   }
 
   validUser(userFca){
@@ -80,7 +100,7 @@ export default class RegisterPass extends Component{
                   placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                   underlineColorAndroid={'transparent'}
                   returnKeyType={'next'}
-                  onSubmitEditing={() => this.confirmPassInput.focus()}
+                  onSubmitEditing={() => this.validPass()}
                   onChangeText={ (text)=> this.setPass(text) }
                   secureTextEntry={!this.state.showPass}
               />
@@ -90,6 +110,7 @@ export default class RegisterPass extends Component{
                 <Icon name={this.state.showPass ? 'ios-eye-off' : 'ios-eye'} size={26} color={'rgba(255, 255, 255, 0.7)'}/>
               </TouchableOpacity>
             </View>
+
             <View style={styles.inputContainer}>
               <Icon name={'ios-lock'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
               <TextInput
@@ -99,6 +120,7 @@ export default class RegisterPass extends Component{
                   underlineColorAndroid={'transparent'}
                   returnKeyType={'go'}
                   ref={(input) => this.confirmPassInput = input}
+                  onSubmitEditing={() => this.validConfirmPass()}
                   onChangeText={ (text)=> this.setConfirmPass(text) }
                   secureTextEntry={!this.state.showConfirmPass}
               />
@@ -114,7 +136,7 @@ export default class RegisterPass extends Component{
           </View>
 
           <View style={styles.footerContainer}>
-            <TouchableOpacity style={styles.btnLogin} onPress={() => this.validUser(this.userFca)}>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => this.validPage()}>
               <Text style={styles.text}>Suivant</Text>
             </TouchableOpacity>
           </View>

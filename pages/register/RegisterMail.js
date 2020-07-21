@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
+import {required, validateEmail} from "../../components/Validation";
 
 const {width: WIDTH } = Dimensions.get('window')
 
@@ -22,8 +23,23 @@ export default class RegisterMail extends Component{
     this.state = {
       showPass: false,
       showConfirmPass: false,
+      errorEmail: ""
     }
     this.userFca = this.props.route.params.userFca
+  }
+
+  validPage(){
+    this.validEmail()
+    this.state.errorEmail === ""
+        ? this.props.navigation.navigate('RegisterLogin', {userFca : this.userFca})
+        : null
+  }
+
+  validEmail(){
+    validateEmail(this.userFca.email) && required(this.userFca.email)
+        ? this.setState({errorEmail: ""})
+        : this.setState({errorEmail: "Veuillez entrer un email valide."})
+
   }
 
   setEmail(email) {
@@ -52,13 +68,16 @@ export default class RegisterMail extends Component{
                   autoCapitalize={'none'}
                   autoCorrect={false}
                   returnKeyType={'go'}
+                  onSubmitEditing={() => this.validEmail()}
                   onChangeText={ (text)=> this.setEmail(text) }
               />
             </View>
+            <Text style={styles.errorText}>{this.state.errorEmail}</Text>
+
           </View>
 
           <View style={styles.footerContainer}>
-            <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('RegisterLogin', {userFca : this.userFca})}>
+            <TouchableOpacity style={styles.btnLogin} onPress={() => this.validPage()}>
               <Text style={styles.text}>Suivant</Text>
             </TouchableOpacity>
           </View>
@@ -124,6 +143,10 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 16,
     textAlign: 'center'
+  },
+  errorText:{
+    textAlign: 'center',
+    color: 'red'
   }
 
 });

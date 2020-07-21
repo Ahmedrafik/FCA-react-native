@@ -10,10 +10,12 @@ import {
   View
 } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import CryptoJS from "react-native-crypto-js";
 
 import bgImage from '../../assets/images/background.png'
 import Logo from "../../components/Logo";
 import {saveUser} from "../../api/FCArsapi";
+import Constants from "../../components/Constants"
 
 
 const {width: WIDTH } = Dimensions.get('window')
@@ -24,21 +26,26 @@ export default class RegisterPass extends Component{
     this.state = {
       showPass: false,
       showConfirmPass: false,
+      error: ""
     }
     this.userFca = this.props.route.params.userFca
   }
 
   setPass(pass) {
-    let encryptPass = CryptoJS.AES.encrypt(pass, 'secret key 123');
-    console.log("encrypted text", encryptPass.toString());
-
-    this.userFca.pass = encryptPass
+    this.userFca.pass = CryptoJS.AES.encrypt(pass, Constants.EncryptKey).toString()
     console.log(this.userFca)
   }
 
   setConfirmPass(confirmPass) {
-    this.userFca.confirmPass = confirmPass
+    this.userFca.confirmPass = CryptoJS.AES.encrypt(confirmPass, Constants.EncryptKey).toString()
     console.log(this.userFca)
+
+    if(CryptoJS.AES.decrypt(this.userFca.pass, Constants.EncryptKey).toString() !== CryptoJS.AES.decrypt(this.userFca.confirmPass, Constants.EncryptKey).toString()){
+      this.setState({error:"Les mots de passe ne sont pas identique."})
+    }
+    else {
+      this.setState({error:""})
+    }
   }
 
   validUser(userFca){
@@ -93,14 +100,16 @@ export default class RegisterPass extends Component{
                   returnKeyType={'go'}
                   ref={(input) => this.confirmPassInput = input}
                   onChangeText={ (text)=> this.setConfirmPass(text) }
-                  secureTextEntry={!this.state.showPass}
+                  secureTextEntry={!this.state.showConfirmPass}
               />
 
               <TouchableOpacity style={styles.btnEye}
                                 onPress={ ()=> this.setState({showConfirmPass: !this.state.showConfirmPass})}>
-                <Icon name={this.state.showPass ? 'ios-eye-off' : 'ios-eye'} size={26} color={'rgba(255, 255, 255, 0.7)'}/>
+                <Icon name={this.state.showConfirmPass ? 'ios-eye-off' : 'ios-eye'} size={26} color={'rgba(255, 255, 255, 0.7)'}/>
               </TouchableOpacity>
             </View>
+
+            <Text style={styles.errorText}>{this.state.error}</Text>
 
           </View>
 
@@ -171,6 +180,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#432577",
     justifyContent: 'center',
     marginTop: 20
+  },
+  errorText:{
+    textAlign: 'center',
+    color: 'red'
   },
   text:{
     color: 'rgba(255, 255, 255, 0.7)',

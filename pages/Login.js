@@ -8,9 +8,11 @@ import Logo from '../components/Logo'
 import {getUserByLogin} from '../api/FCArsapi'
 import Constants from '../components/Constants'
 import CryptoJS from "react-native-crypto-js";
+import {required} from "../components/Validation";
 
 
 const {width: WIDTH } = Dimensions.get('window')
+
 
 
 export default class Login extends Component{
@@ -19,6 +21,7 @@ export default class Login extends Component{
     this.login = ""
     this.pass =  ""
     this.state = {
+      errorLogin:"",
       showPass: false,
       error: ""
     }
@@ -37,10 +40,26 @@ export default class Login extends Component{
          }
        })
        .catch((error) => {
-           console.log("verifyAccess error : " + error)
-         //TODO:redirect to error page
+         console.log("verifyAccess error : " + error)
+         this.props.navigation.navigate('TechnicalDifficulties')
        });
   }
+
+  validLogin(){
+    if(required(this.login)) {
+      this.setState({errorLogin: ""})
+      this.passInput.focus()
+    } else {
+      this.setState({errorLogin: "Veuillez entrer votre nom d'utilisateur."})
+    }
+  }
+
+  validPass(){
+    required(this.pass)
+        ? this.setState({error: ""})
+        : this.setState({error: "Veuillez entrer votre mot de passe."})
+  }
+
 
 
   render() {
@@ -55,6 +74,8 @@ export default class Login extends Component{
                 placeholder={'E-mail / Login'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
+                returnKeyType={'next'}
+                onSubmitEditing={() => this.validLogin()}
                 onChangeText={ (text)=> this.login=text }
             />
           </View>
@@ -65,6 +86,9 @@ export default class Login extends Component{
                 placeholder={'Mot de passe'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
+                returnKeyType={'go'}
+                ref={(input) => this.passInput = input}
+                onSubmitEditing={() => this.validPass()}
                 onChangeText={ (text)=> this.pass=CryptoJS.AES.encrypt(text, Constants.EncryptKey).toString() }
                 secureTextEntry={!this.state.showPass}
             />

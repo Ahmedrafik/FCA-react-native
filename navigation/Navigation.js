@@ -2,6 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import TechnicalDifficulties from "../pages/TechnicalDifficulties";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Organigramme from "../pages/Organigramme";
@@ -23,6 +24,7 @@ export default function Navigation() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Login" headerMode="none">
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="TechnicalDifficulties" component={TechnicalDifficulties} />
                 <Stack.Screen name="RegisterHome" component={RegisterHome} />
                 <Stack.Screen name="RegisterName" component={RegisterName} />
                 <Stack.Screen name="RegisterMail" component={RegisterMail} />
@@ -35,7 +37,6 @@ export default function Navigation() {
                 <Stack.Screen name="Bottles" component={Bottles} />
                 <Stack.Screen name="Promenade" component={Promenade} />
                 <Stack.Screen name="PlusUn" component={PlusUn} />
-
             </Stack.Navigator>
         </NavigationContainer>
     );

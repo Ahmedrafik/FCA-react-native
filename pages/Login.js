@@ -7,12 +7,13 @@ import bgImage from '../assets/images/background.png'
 import Logo from '../components/Logo'
 import {getUserByLogin} from '../api/FCArsapi'
 import Constants from '../components/Constants'
+import CryptoJS from "react-native-crypto-js";
 
 
 const {width: WIDTH } = Dimensions.get('window')
 
 
-class Login extends Component{
+export default class Login extends Component{
   constructor(props) {
     super(props)
     this.login = ""
@@ -27,17 +28,17 @@ class Login extends Component{
    getUserByLogin(this.login, this.pass)
        .then((response) => response.json())
        .then((responseJson) => {
-         if(responseJson.status === Constants.HTTPStatus.NOTFOUND){
+         if(responseJson.status === Constants.HTTPStatus.NOTFOUND
+         || CryptoJS.AES.decrypt(this.pass, Constants.EncryptKey).toString() !== CryptoJS.AES.decrypt(responseJson.pass, Constants.EncryptKey).toString()){
            this.setState({error: 'Le login/pass entré ne correspondent à aucun utilisateur validé.'})
-           console.log('404 : ' + JSON.stringify(responseJson))
          }else{
            this.setState({error: ''})
            this.props.navigation.navigate('Home', responseJson)
-           console.log('200 : ' + JSON.stringify(responseJson))
          }
        })
        .catch((error) => {
            console.log("verifyAccess error : " + error)
+         //TODO:redirect to error page
        });
   }
 
@@ -46,7 +47,7 @@ class Login extends Component{
 
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-         <Logo/>
+          <Logo/>
           <View style={styles.inputContainer}>
             <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
             <TextInput
@@ -64,7 +65,7 @@ class Login extends Component{
                 placeholder={'Mot de passe'}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid={'transparent'}
-                onChangeText={ (text)=> this.pass=text }
+                onChangeText={ (text)=> this.pass=CryptoJS.AES.encrypt(text, Constants.EncryptKey).toString() }
                 secureTextEntry={!this.state.showPass}
             />
             <TouchableOpacity style={styles.btnEye}
@@ -82,7 +83,6 @@ class Login extends Component{
           <Text style={styles.registerText} onPress={() => this.props.navigation.push('RegisterHome')}>
             Toujours pas inscrit au FCA, fait ta demande ici
           </Text>
-
         </ImageBackground>
     );
   }
@@ -159,5 +159,3 @@ const styles = StyleSheet.create({
   }
 
 });
-
-export default Login

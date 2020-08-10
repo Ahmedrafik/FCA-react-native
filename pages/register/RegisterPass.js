@@ -78,6 +78,7 @@ export default class RegisterPass extends Component{
         })
         .catch((error) => {
           console.log("verifyAccess error : " + error)
+          this.props.navigation.navigate('TechnicalDifficulties')
         });
   }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import logo from '../assets/images/logo.png'
@@ -8,6 +8,8 @@ import bfm from '../assets/slideshow/bfm.png'
 import bottles from '../assets/slideshow/pastis.png'
 import promenade from '../assets/slideshow/promenade.png'
 import plusUn from '../assets/slideshow/plusUn.png'
+import bgImage from "../assets/images/background.png";
+import help from "../assets/button/help.png"
 
 const windowDimensions = Dimensions.get("window");
 
@@ -39,6 +41,7 @@ class Home extends Component{
         },
       ]
     }
+    this.userFca = this.props.route.params.userFca
   }
 
   _renderItem({item}){
@@ -63,11 +66,14 @@ class Home extends Component{
   }
 
   render() {
+    console.log(this.userFca)
     return (
+        <ImageBackground source={bgImage} style={styles.backgroundContainer}>
+
         <View style={styles.container}>
           <View style={styles.headerContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Bonjour Captain</Text>
+              <Text style={styles.title}>Bonjour {this.userFca.firstname}</Text>
             </View>
             <View style={styles.logoContainer}>
               <Image source={logo} style={styles.logo}/>
@@ -83,22 +89,31 @@ class Home extends Component{
                 renderItem={this._renderItem.bind(this)}
                 onSnapToItem = { index => this.setState({activeIndex:index}) } />
           </View>
-          <View style={styles.helpContainer}/>
+          <View style={styles.helpContainer}>
+            <TouchableOpacity activeOpacity = { .5 } onPress={() => this.goOnPage('toto')}>
+              <Image source={help} style={styles.helpImage}/>
+            </TouchableOpacity>
+          </View>
         </View>
+        </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
-    backgroundColor: 'yellow'
   },
   headerContainer: {
     flex: 1,
     paddingTop: 25,
     flexDirection: 'row',
-    backgroundColor: 'white'
+    backgroundColor: '#eaeaa7'
   },
   slideshowContainer: {
     flex: 5,
@@ -107,12 +122,16 @@ const styles = StyleSheet.create({
   },
   slideshowImage: {
     resizeMode: 'contain',
-    width: 300,
-    height: 300
+    height: windowDimensions.height/3
   },
   helpContainer: {
     flex: 3,
-    backgroundColor: 'blue'
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  helpImage: {
+    resizeMode: 'contain',
+    height: windowDimensions.height/4
   },
   titleContainer:{
     flex: 3,

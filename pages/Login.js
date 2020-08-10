@@ -36,7 +36,7 @@ export default class Login extends Component{
            this.setState({error: 'Le login/pass entré ne correspondent à aucun utilisateur validé.'})
          }else{
            this.setState({error: ''})
-           this.props.navigation.navigate('Home', responseJson)
+           this.props.navigation.navigate('Home', {userFca : responseJson})
          }
        })
        .catch((error) => {

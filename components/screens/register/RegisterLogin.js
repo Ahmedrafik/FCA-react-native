@@ -11,43 +11,43 @@ import {
 } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
-import bgImage from '../../assets/images/background.png'
-import Logo from "../../components/Logo";
-import {required, validateEmail} from "../../components/Validation";
+import bgImage from '../../../assets/images/background.png'
+import Logo from "../../common/Logo";
+
+import {required} from "../../common/Validation"
 
 const {width: WIDTH } = Dimensions.get('window')
 
-export default class RegisterMail extends Component{
+export default class RegisterLogin extends Component{
   constructor(props) {
     super(props)
     this.state = {
-      showPass: false,
-      showConfirmPass: false,
-      errorEmail: ""
+      error: ''
     }
     this.userFca = this.props.route.params.userFca
   }
 
   validPage(){
-    this.validEmail()
-    this.state.errorEmail === ""
-        ? this.props.navigation.navigate('RegisterLogin', {userFca : this.userFca})
+    this.validLogin()
+    this.state.error === ""
+        ? this.props.navigation.navigate('RegisterPass', {userFca : this.userFca})
         : null
   }
 
-  validEmail(){
-    validateEmail(this.userFca.email) && required(this.userFca.email)
-        ? this.setState({errorEmail: ""})
-        : this.setState({errorEmail: "Veuillez entrer un email valide."})
-
+  validLogin(){
+    required(this.userFca.login)
+        ? this.setState({error: ""})
+        : this.setState({error: "Veuillez entrer nom d'utilisateur."})
   }
 
-  setEmail(email) {
-    this.userFca.email = email
+
+  setLogin(login) {
+    this.userFca.login = login
     console.log(this.userFca)
   }
 
   render() {
+
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
           <StatusBar hidden={true}/>
@@ -55,25 +55,19 @@ export default class RegisterMail extends Component{
             <Logo/>
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.text1}>Entrer votre e-mail</Text>
-
+            <Text style={styles.text1}>Choisissez un nom d'utilisateur </Text>
             <View style={styles.inputContainer}>
-              <Icon name={'ios-at'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
+              <Icon name={'ios-person'} size={28} color={'rgba(255, 255, 255, 0.7)'} style={styles.inputIcon}/>
               <TextInput
                   style={styles.input}
-                  placeholder={'E-mail'}
+                  placeholder={'Login'}
                   placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                   underlineColorAndroid={'transparent'}
-                  keyboardType={'email-address'}
-                  autoCapitalize={'none'}
-                  autoCorrect={false}
-                  returnKeyType={'go'}
-                  onSubmitEditing={() => this.validEmail()}
-                  onChangeText={ (text)=> this.setEmail(text) }
+                  onSubmitEditing={() => this.validLogin()}
+                  onChangeText={ (text)=> this.setLogin(text) }
               />
             </View>
-            <Text style={styles.errorText}>{this.state.errorEmail}</Text>
-
+            <Text style={styles.errorText}>{this.state.error}</Text>
           </View>
 
           <View style={styles.footerContainer}>

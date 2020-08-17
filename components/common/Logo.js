@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-import logo from '../assets/images/logo.png'
+import logo from '../../assets/images/logo.png'
 
 
 class Logo extends Component{

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Dimensions, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import bgImage from '../../assets/images/background.png'
-import Logo from "../../components/Logo";
+import bgImage from '../../../assets/images/background.png'
+import Logo from "../../common/Logo";
 
 const {width: WIDTH } = Dimensions.get('window')
 

@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
-import bgImage from '../../assets/images/background.png'
-import Logo from "../../components/Logo";
+import bgImage from '../../../assets/images/background.png'
+import Logo from "../../common/Logo";
 
-import {required} from "../../components/Validation"
+import {required} from "../../common/Validation"
 
 const {width: WIDTH } = Dimensions.get('window')
 

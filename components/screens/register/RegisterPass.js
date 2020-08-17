@@ -12,11 +12,11 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import CryptoJS from "react-native-crypto-js";
 
-import bgImage from '../../assets/images/background.png'
-import Logo from "../../components/Logo";
-import {saveUser} from "../../api/FCArsapi";
-import Constants from "../../components/Constants"
-import {required} from "../../components/Validation";
+import bgImage from '../../../assets/images/background.png'
+import Logo from "../../common/Logo";
+import {saveUser} from "../../../utils/FCArsapi";
+import Constants from "../../common/Constants"
+import {required} from "../../common/Validation";
 
 
 const {width: WIDTH } = Dimensions.get('window')

@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
-import bgImage from '../assets/images/background.png'
+import bgImage from '../../assets/images/background.png'
 
-import Logo from '../components/Logo'
-import {getUserByLogin} from '../api/FCArsapi'
-import Constants from '../components/Constants'
+import Logo from '../common/Logo'
+import {getUserByLogin} from '../../utils/FCArsapi'
+import Constants from '../common/Constants'
 import CryptoJS from "react-native-crypto-js";
-import {required} from "../components/Validation";
+import {required} from "../common/Validation";
 
 
 const {width: WIDTH } = Dimensions.get('window')

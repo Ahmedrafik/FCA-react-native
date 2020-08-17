@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 
-import technicalDifficulties from '../assets/images/technicalDifficulties.png'
+import technicalDifficulties from '../../assets/images/technicalDifficulties.png'
 
 export default class TechnicalDifficulties extends Component{
 

@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import logo from '../assets/images/logo.png'
-import organigram from '../assets/slideshow/organigramm.png'
-import bfm from '../assets/slideshow/bfm.png'
-import bottles from '../assets/slideshow/pastis.png'
-import promenade from '../assets/slideshow/promenade.png'
-import plusUn from '../assets/slideshow/plusUn.png'
-import bgImage from "../assets/images/background.png";
-import help from "../assets/button/help.png"
+import Header from '../common/Header'
+import organigram from '../../assets/slideshow/organigramm.png'
+import bfm from '../../assets/slideshow/bfm.png'
+import bottles from '../../assets/slideshow/pastis.png'
+import promenade from '../../assets/slideshow/promenade.png'
+import plusUn from '../../assets/slideshow/plusUn.png'
+import bgImage from "../../assets/images/background.png";
+import help from "../../assets/button/help.png"
 
 const windowDimensions = Dimensions.get("window");
 
@@ -62,23 +62,16 @@ class Home extends Component{
 
   goOnPage(titlePage) {
     console.log("Go on page " + titlePage)
-    this.props.navigation.navigate(titlePage)
+    this.props.navigation.navigate(titlePage, {userFca : this.userFca})
   }
 
   render() {
     console.log(this.userFca)
     return (
         <ImageBackground source={bgImage} style={styles.backgroundContainer}>
-
         <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Bonjour {this.userFca.firstname}</Text>
-            </View>
-            <View style={styles.logoContainer}>
-              <Image source={logo} style={styles.logo}/>
-            </View>
-          </View>
+          <Header title={'Bonjour ' + this.userFca.firstname}/>
+
           <View  style={styles.slideshowContainer}>
             <Carousel style={{flex: 1 , alignItems: 'center', justifyContent: 'center'}}
                 layout={"default"}
@@ -109,12 +102,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  headerContainer: {
-    flex: 1,
-    paddingTop: 25,
-    flexDirection: 'row',
-    backgroundColor: '#eaeaa7'
-  },
   slideshowContainer: {
     flex: 5,
     justifyContent: 'center',
@@ -132,24 +119,6 @@ const styles = StyleSheet.create({
   helpImage: {
     resizeMode: 'contain',
     height: windowDimensions.height/4
-  },
-  titleContainer:{
-    flex: 3,
-    alignItems: 'flex-start',
-    justifyContent:'center'
-  },
-  title:{
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  logoContainer:{
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent:'center'
-  },
-  logo:{
-    width: 40,
-    height: 40
   }
 });
 

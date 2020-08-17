@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import Header from '../common/Header'
@@ -10,8 +10,7 @@ import promenade from '../../assets/slideshow/promenade.png'
 import plusUn from '../../assets/slideshow/plusUn.png'
 import bgImage from "../../assets/images/background.png";
 import help from "../../assets/button/help.png"
-
-const windowDimensions = Dimensions.get("window");
+import Constants from "../common/Constants"
 
 class Home extends Component{
   constructor(props) {
@@ -77,8 +76,8 @@ class Home extends Component{
                 layout={"default"}
                 ref={ref => this.carousel = ref}
                 data={this.state.carouselItems}
-                sliderWidth={windowDimensions.width}
-                itemWidth={windowDimensions.width}
+                sliderWidth={Constants.windowDimensions.width}
+                itemWidth={Constants.windowDimensions.width}
                 renderItem={this._renderItem.bind(this)}
                 onSnapToItem = { index => this.setState({activeIndex:index}) } />
           </View>
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
   },
   slideshowImage: {
     resizeMode: 'contain',
-    height: windowDimensions.height/3
+    height: Constants.windowDimensions.height/3
   },
   helpContainer: {
     flex: 3,
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   },
   helpImage: {
     resizeMode: 'contain',
-    height: windowDimensions.height/4
+    height: Constants.windowDimensions.height/4
   }
 });
 

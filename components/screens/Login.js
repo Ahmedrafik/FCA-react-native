@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 import bgImage from '../../assets/images/background.png'
@@ -9,11 +9,6 @@ import {getUserByLogin} from '../../utils/FCArsapi'
 import Constants from '../common/Constants'
 import CryptoJS from "react-native-crypto-js";
 import {required} from "../common/Validation";
-
-
-const {width: WIDTH } = Dimensions.get('window')
-
-
 
 export default class Login extends Component{
   constructor(props) {
@@ -137,7 +132,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   input:{
-    width: WIDTH - 55,
+    width: Constants.windowDimensions.width - 55,
     height: 45,
     borderRadius: 45,
     fontSize: 16,
@@ -157,7 +152,7 @@ const styles = StyleSheet.create({
     right: 37
   },
   btnLogin:{
-    width: WIDTH - 55,
+    width: Constants.windowDimensions.width - 55,
     height: 45,
     borderRadius: 45,
     fontSize: 16,

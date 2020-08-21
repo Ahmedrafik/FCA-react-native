@@ -7,5 +7,6 @@ module.exports = {
         CREATED: 201
     },
     EncryptKey: 'Fuz!Club@per@',
-    windowDimensions: Dimensions.get("window")
+    windowDimensions: Dimensions.get("window"),
+    URL_API: "http://172.18.0.1:8080/api/"
 }

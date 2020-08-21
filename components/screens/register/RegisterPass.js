@@ -14,7 +14,7 @@ import CryptoJS from "react-native-crypto-js";
 
 import bgImage from '../../../assets/images/background.png'
 import Logo from "../../common/Logo";
-import {saveUser} from "../../../utils/FCArsapi";
+import {saveUser} from "../../../utils/FCArsapi/userApi";
 import Constants from "../../common/Constants"
 import {required} from "../../common/Validation";
 

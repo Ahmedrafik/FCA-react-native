@@ -1,7 +1,7 @@
 const URL_API = "http://192.168.0.29:8080/api/";
 
 export function getUserByLogin (login, password) {
-    const url = URL_API + 'user/verifyAccess'
+    const url = Constant.URL_API + 'user/verifyAccess'
     return fetch(url, {
         method: 'POST',
         headers: {
@@ -16,7 +16,7 @@ export function getUserByLogin (login, password) {
 }
 
 export function saveUser (userFca) {
-    const url = URL_API + 'user/'
+    const url = Constant.URL_API + 'user/'
     return fetch(url, {
         method: 'POST',
         headers: {

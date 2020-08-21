@@ -7,7 +7,7 @@ import Login from "../components/screens/Login";
 import Home from "../components/screens/Home";
 import Organigramme from "../components/screens/Organigramme";
 import Bfm from "../components/screens/Bfm";
-import Bottles from "../components/screens/Bottles";
+import Bottles from "../components/screens/bills/Bottles";
 import Promenade from "../components/screens/Promenade";
 import PlusUn from "../components/screens/PlusUn";
 import RegisterHome from "../components/screens/register/RegisterHome";
@@ -16,6 +16,8 @@ import RegisterMail from "../components/screens/register/RegisterMail";
 import RegisterLogin from "../components/screens/register/RegisterLogin";
 import RegisterPass from "../components/screens/register/RegisterPass";
 import RegisterValidation from "../components/screens/register/RegisterValidation";
+import addBottle from "../components/screens/bills/AddBottle";
+import addBill from "../components/screens/bills/AddBill"
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,8 @@ export default function Navigation() {
                 <Stack.Screen name="Bottles" component={Bottles} />
                 <Stack.Screen name="Promenade" component={Promenade} />
                 <Stack.Screen name="PlusUn" component={PlusUn} />
+                <Stack.Screen name="addBottle" component={addBottle} />
+                <Stack.Screen name="addBill" component={addBill} />
             </Stack.Navigator>
         </NavigationContainer>
     );

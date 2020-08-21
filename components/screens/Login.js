@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import bgImage from '../../assets/images/background.png'
 
 import Logo from '../common/Logo'
-import {getUserByLogin} from '../../utils/FCArsapi'
+import {getUserByLogin} from '../../utils/FCArsapi/userApi'
 import Constants from '../common/Constants'
 import CryptoJS from "react-native-crypto-js";
 import {required} from "../common/Validation";

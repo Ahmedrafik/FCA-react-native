@@ -1,4 +1,4 @@
-const URL_API = "http://192.168.0.29:8080/api/";
+import Constant from '../../components/common/Constants'
 
 export function getUserByLogin (login, password) {
     const url = Constant.URL_API + 'user/verifyAccess'

@@ -21,3 +21,28 @@ export function getPromBills () {
         }
     })
 }
+
+export function saveBottle (bottle) {
+    const url = Constant.URL_API + 'bottlebill/'
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bottle)
+    })
+}
+
+export function saveBill (bill) {
+    const url = Constant.URL_API + 'bill/'
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bill)
+    })
+}
+

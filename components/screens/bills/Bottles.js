@@ -13,7 +13,7 @@ const chartConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientTo: "#08130D",
   backgroundGradientToOpacity: 0,
-  color: 'white',
+  color: (opacity = 1) => `white`,
   barPercentage: 0.5,
   useShadowColorFromDataset: false // optional
 };

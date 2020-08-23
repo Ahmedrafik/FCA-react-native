@@ -8,7 +8,6 @@ import Home from "../components/screens/Home";
 import Organigramme from "../components/screens/Organigramme";
 import Bfm from "../components/screens/Bfm";
 import Bottles from "../components/screens/bills/Bottles";
-import Promenade from "../components/screens/Promenade";
 import PlusUn from "../components/screens/PlusUn";
 import RegisterHome from "../components/screens/register/RegisterHome";
 import RegisterName from "../components/screens/register/RegisterName";
@@ -37,7 +36,6 @@ export default function Navigation() {
                 <Stack.Screen name="Organigramme" component={Organigramme} />
                 <Stack.Screen name="Bfm" component={Bfm} />
                 <Stack.Screen name="Bottles" component={Bottles} />
-                <Stack.Screen name="Promenade" component={Promenade} />
                 <Stack.Screen name="PlusUn" component={PlusUn} />
                 <Stack.Screen name="addBottle" component={addBottle} />
                 <Stack.Screen name="addBill" component={addBill} />

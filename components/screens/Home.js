@@ -6,7 +6,6 @@ import Header from '../common/Header'
 import organigram from '../../assets/slideshow/organigramm.png'
 import bfm from '../../assets/slideshow/bfm.png'
 import bottles from '../../assets/slideshow/pastis.png'
-import promenade from '../../assets/slideshow/promenade.png'
 import plusUn from '../../assets/slideshow/plusUn.png'
 import bgImage from "../../assets/images/background.png";
 import help from "../../assets/button/help.png"
@@ -29,10 +28,6 @@ class Home extends Component{
         {
           title:"Bottles",
           image: bottles,
-        },
-        {
-          title:"Promenade",
-          image: promenade,
         },
         {
           title:"PlusUn",
